@@ -13,6 +13,7 @@ import { Header } from '@/components/Header/Header';
 import { Footer } from '@/components/Footer/Footer';
 import ReduxProvider from './ReduxProvider';
 import { EditorProvider } from './EditorContext';
+import { ZakekeEditorProvider } from './ZakekeEditorContext';
 
 export const roboto = Roboto({ subsets: ['latin'], weight: ['400', '600', '700'] });
 export const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '700'] });
@@ -45,11 +46,13 @@ export default async function LocaleLAyout({
           <ReduxProvider>
             <Provider>
               <EditorProvider>
-                <main style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-                  <Header />
-                  <div style={{ marginTop: 72 }}>{children}</div>
-                  <Footer />
-                </main>
+                <ZakekeEditorProvider>
+                  <main style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+                    <Header />
+                    <div style={{ marginTop: 72 }}>{children}</div>
+                    <Footer />
+                  </main>
+                </ZakekeEditorProvider>
               </EditorProvider>
             </Provider>
           </ReduxProvider>

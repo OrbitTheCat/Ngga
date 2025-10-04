@@ -1,4 +1,5 @@
-import { CardVariantEnum, Editor } from "./Editor";
+import { CardVariantEnum } from "./Editor";
+import { ZakekeEditor } from "./ZakekeEditor";
 import { useAppDispatch } from "@/lib/hooks/hooks";
 import { addProduct, resetCart } from "@/lib/slices/cartSlice";
 import { useRouter } from "next/navigation";
@@ -35,5 +36,5 @@ export const CardEditor = () => {
         }
     };
 
-    return <Editor handleOrder={handleOrder} />;
+    return <ZakekeEditor handleOrder={handleOrder} />;
 };
