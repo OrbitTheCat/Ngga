@@ -59,8 +59,9 @@ export const ZakekeEditor = ({ handleOrder }: ZakekeEditorProps) => {
   useEffect(() => {
     if (!isLoaded || !window.ZakekeDesigner || !containerRef.current) return;
 
-    const zakekeCustomizer = new window.ZakekeDesigner();
-    setCustomizer(zakekeCustomizer);
+    try {
+      const zakekeCustomizer = new window.ZakekeDesigner();
+      setCustomizer(zakekeCustomizer);
 
     const config: ZakekeConfig = {
       // OAuth token from environment variables
@@ -133,22 +134,33 @@ export const ZakekeEditor = ({ handleOrder }: ZakekeEditorProps) => {
       mobileVersion: window.innerWidth <= 768
     };
 
-    // Create the iframe
-    zakekeCustomizer.createIframe(config);
+      // Create the iframe
+      zakekeCustomizer.createIframe(config);
 
-    return () => {
-      if (zakekeCustomizer && zakekeCustomizer.removeIframe) {
-        zakekeCustomizer.removeIframe();
-      }
-    };
+      return () => {
+        if (zakekeCustomizer && typeof zakekeCustomizer.removeIframe === 'function') {
+          try {
+            zakekeCustomizer.removeIframe();
+          } catch (error) {
+            console.warn('Error removing Zakeke iframe:', error);
+          }
+        }
+      };
+    } catch (error) {
+      console.error('Error initializing Zakeke customizer:', error);
+    }
   }, [isLoaded, handleOrder, cardVariant, t]);
 
   const handleVariantChange = (variant: CardVariantEnum) => {
     setCardVariant(variant);
     // Reinitialize customizer with new variant
-    if (customizer) {
-      customizer.removeIframe();
-      // The useEffect will reinitialize with the new variant
+    if (customizer && typeof customizer.removeIframe === 'function') {
+      try {
+        customizer.removeIframe();
+        // The useEffect will reinitialize with the new variant
+      } catch (error) {
+        console.warn('Error removing iframe during variant change:', error);
+      }
     }
   };
 
