@@ -59,96 +59,99 @@ export const ZakekeEditor = ({ handleOrder }: ZakekeEditorProps) => {
   useEffect(() => {
     if (!isLoaded || !window.ZakekeDesigner || !containerRef.current) return;
 
+    let zakekeCustomizer: any = null;
+
     try {
-      const zakekeCustomizer = new window.ZakekeDesigner();
+      zakekeCustomizer = new window.ZakekeDesigner();
       setCustomizer(zakekeCustomizer);
 
-    const config: ZakekeConfig = {
-      // OAuth token from environment variables
-      tokenOauth: process.env.NEXT_PUBLIC_ZAKEKE_TOKEN || 'YOUR_ZAKEKE_TOKEN',
-      
-      // Product configuration from environment variables
-      productId: process.env.NEXT_PUBLIC_ZAKEKE_PRODUCT_ID || 'business-card-001',
-      productName: process.env.NEXT_PUBLIC_ZAKEKE_PRODUCT_NAME || 'Business Card',
-      currency: 'USD',
-      culture: 'en-US',
-      quantity: 1,
-      cartButtonText: t('addToCart') || 'Add to Cart',
-      
-      // Callbacks
-      getProductInfo: () => {
-        return {
-          productId: 'business-card-001',
-          productName: 'Business Card',
-          price: 12.49,
-          currency: 'USD',
-          variants: [
-            { id: CardVariantEnum.Cherry, name: 'Cherry Wood' },
-            { id: CardVariantEnum.Sapeli, name: 'Sapeli Wood' },
-            { id: CardVariantEnum.Rosewood, name: 'Rosewood' },
-            { id: CardVariantEnum.Maple, name: 'Maple Wood' },
-            { id: CardVariantEnum.BlackWalnut, name: 'Black Walnut' },
-            { id: CardVariantEnum.Bamboo, name: 'Bamboo' },
-          ]
-        };
-      },
-
-      addToCart: (zakekeData: any) => {
-        console.log('Adding to cart:', zakekeData);
+      const config: ZakekeConfig = {
+        // OAuth token from environment variables
+        tokenOauth: process.env.NEXT_PUBLIC_ZAKEKE_TOKEN || 'YOUR_ZAKEKE_TOKEN',
         
-        // Extract design data from Zakeke
-        const cards = [{
-          variant: cardVariant,
-          url: zakekeData.previewUrl || zakekeData.designId,
-          json: zakekeData.designData,
-          svg: zakekeData.svgData,
-          objects: zakekeData.objects
-        }];
+        // Product configuration from environment variables
+        productId: process.env.NEXT_PUBLIC_ZAKEKE_PRODUCT_ID || 'business-card-001',
+        productName: process.env.NEXT_PUBLIC_ZAKEKE_PRODUCT_NAME || 'Business Card',
+        currency: 'USD',
+        culture: 'en-US',
+        quantity: 1,
+        cartButtonText: t('addToCart') || 'Add to Cart',
+        
+        // Callbacks
+        getProductInfo: () => {
+          return {
+            productId: 'business-card-001',
+            productName: 'Business Card',
+            price: 12.49,
+            currency: 'USD',
+            variants: [
+              { id: CardVariantEnum.Cherry, name: 'Cherry Wood' },
+              { id: CardVariantEnum.Sapeli, name: 'Sapeli Wood' },
+              { id: CardVariantEnum.Rosewood, name: 'Rosewood' },
+              { id: CardVariantEnum.Maple, name: 'Maple Wood' },
+              { id: CardVariantEnum.BlackWalnut, name: 'Black Walnut' },
+              { id: CardVariantEnum.Bamboo, name: 'Bamboo' },
+            ]
+          };
+        },
 
-        // Call the existing handleOrder function
-        handleOrder(cards);
-      },
+        addToCart: (zakekeData: any) => {
+          console.log('Adding to cart:', zakekeData);
+          
+          // Extract design data from Zakeke
+          const cards = [{
+            variant: cardVariant,
+            url: zakekeData.previewUrl || zakekeData.designId,
+            json: zakekeData.designData,
+            svg: zakekeData.svgData,
+            objects: zakekeData.objects
+          }];
 
-      editAddToCart: (zakekeData: any) => {
-        console.log('Editing cart item:', zakekeData);
-        // Handle edit functionality if needed
-      },
+          // Call the existing handleOrder function
+          handleOrder(cards);
+        },
 
-      getProductPrice: () => {
-        return {
-          price: 12.49,
-          currency: 'USD'
-        };
-      },
+        editAddToCart: (zakekeData: any) => {
+          console.log('Editing cart item:', zakekeData);
+          // Handle edit functionality if needed
+        },
 
-      onBackClicked: () => {
-        // Handle back navigation
-        window.history.back();
-      },
+        getProductPrice: () => {
+          return {
+            price: 12.49,
+            currency: 'USD'
+          };
+        },
 
-      // Configuration options
-      selectedAttributes: {
-        variant: cardVariant
-      },
-      hideVariants: false,
-      mobileVersion: window.innerWidth <= 768
-    };
+        onBackClicked: () => {
+          // Handle back navigation
+          window.history.back();
+        },
+
+        // Configuration options
+        selectedAttributes: {
+          variant: cardVariant
+        },
+        hideVariants: false,
+        mobileVersion: window.innerWidth <= 768
+      };
 
       // Create the iframe
       zakekeCustomizer.createIframe(config);
-
-      return () => {
-        if (zakekeCustomizer && typeof zakekeCustomizer.removeIframe === 'function') {
-          try {
-            zakekeCustomizer.removeIframe();
-          } catch (error) {
-            console.warn('Error removing Zakeke iframe:', error);
-          }
-        }
-      };
     } catch (error) {
       console.error('Error initializing Zakeke customizer:', error);
     }
+
+    // Cleanup function
+    return () => {
+      if (zakekeCustomizer && typeof zakekeCustomizer.removeIframe === 'function') {
+        try {
+          zakekeCustomizer.removeIframe();
+        } catch (error) {
+          console.warn('Error removing Zakeke iframe:', error);
+        }
+      }
+    };
   }, [isLoaded, handleOrder, cardVariant, t]);
 
   const handleVariantChange = (variant: CardVariantEnum) => {
