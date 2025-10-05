@@ -101,6 +101,10 @@ const profileSchema = new Schema(
       }],
       default: [],
     },
+    hideVCardDownload: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true },
 );

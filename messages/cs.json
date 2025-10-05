@@ -80,6 +80,9 @@
         "account2": "chcete se přihlásit?",
         "registerCompleted": "Registrace proběhla úspěšně!",
         "alreadyRegistered": "Už jsi zaregistrovaný.",
+        "registrationError": "Chyba registrace",
+        "serverError": "Chyba serveru",
+        "unexpectedError": "Neočekávaná chyba",
         "validation": {
             "name": "Jméno musí mít alespoň 3 znaky",
             "surname": "Příjmení musí mít alespoň 4 znaky",
@@ -404,7 +407,10 @@
             "email": "Email",
             "bio": "Bio",
             "share": "Sdílet",
-            "copyPopup": "Zkopírováno do schránky"
+            "copyPopup": "Zkopírováno do schránky",
+            "contact": "Přidat do kontaktů",
+            "hideVCardDownload": "Skrýt tlačítko stažení vCard",
+            "hideVCardDownloadDesc": "Pokud je povoleno, tlačítko pro stažení vCard nebude na vašem profilu viditelné"
         },
         "socials": {
             "placeholder": "Zadejte adresu URL položky"

@@ -170,7 +170,9 @@ export const DigitalProfile = ({ profile }: { profile: ProfileState }) => {
                         ))}
                     </DigitalVideosWrapperStyled>
                 )}
-                <button className="download-vcard-button" onClick={() => downloadVCard(profile)}>{tCommon("downloadVCard")}</button>
+                {!profile.hideVCardDownload && (
+                    <button className="download-vcard-button" onClick={() => downloadVCard(profile)}>{tCommon("downloadVCard")}</button>
+                )}
             </DigitalProfileContentStyled>
         </DigitalProfileWrapperStyled>
     );

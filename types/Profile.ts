@@ -35,6 +35,7 @@ export interface SocialState {
     socials: SocialState[];
     links: LinkState[];
     videos: VideoState[];
+    hideVCardDownload: boolean;
     createdAt: string;
     updatedAt: string;
   }

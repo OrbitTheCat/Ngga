@@ -74,6 +74,9 @@
     "account2": "want to log in?",
     "registerCompleted": "Registration was completed successfully!",
     "alreadyRegistered": "You are already registered.",
+    "registrationError": "Registration error",
+    "serverError": "Server error",
+    "unexpectedError": "Unexpected error",
     "validation": {
       "name": "First name must be at least 3 characters",
       "surname": "Last name must be at least 4 characters",
@@ -399,7 +402,9 @@
       "bio": "Bio",
       "share": "Share",
       "copyPopup": "Copied to clipboard",
-      "contact": "Add to contacts"
+      "contact": "Add to contacts",
+      "hideVCardDownload": "Hide vCard download button",
+      "hideVCardDownloadDesc": "When enabled, the vCard download button will not be visible on your profile"
     },
     "socials": {
       "placeholder": "Enter the item's URL"

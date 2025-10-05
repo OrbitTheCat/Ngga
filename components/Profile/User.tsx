@@ -1,6 +1,6 @@
 import { ProfileState } from "@/types/Profile";
 import { BorderRadius, Colors, Spacing } from "@/utils";
-import { Textarea, TextInput, Button } from "@mantine/core";
+import { Textarea, TextInput, Button, Checkbox } from "@mantine/core";
 import styled from "styled-components";
 import { UploadButtonWithLabel } from "./UploadButtonWithLabel";
 import { useTranslations } from "next-intl";
@@ -24,9 +24,10 @@ export const User = ({ profile, setProfile }: ProfileProps) => {
 
 
     
-    const changeItem = (field: string, value: string | null) => {
+    const changeItem = (field: string, value: string | null | boolean) => {
         setProfile({ ...profile, [field]: value });
     };
+
 
     const handleAliasButtonClick = async () => {
         if (typeof window === 'undefined') return;
@@ -139,6 +140,13 @@ export const User = ({ profile, setProfile }: ProfileProps) => {
                     label={t("bio")}
                     resize="vertical"
                     maxLength={250}
+                />
+                <Checkbox
+                    checked={profile.hideVCardDownload ?? false}
+                    onChange={(event) => changeItem("hideVCardDownload", event.currentTarget.checked)}
+                    label={t("hideVCardDownload")}
+                    description={t("hideVCardDownloadDesc")}
+                    style={{ gridColumn: "1 / -1", marginTop: "16px" }}
                 />
             </UserWrapperStyled>
         </div>
