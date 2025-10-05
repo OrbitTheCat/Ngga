@@ -7,6 +7,7 @@ import styled from "styled-components";
 import Cropper from "react-easy-crop";
 import { useState, useCallback } from "react";
 import getCroppedImg from "./GetCroppedImg";
+import { useTranslations } from "next-intl";
 
 export const UploadButtonWithLabel = ({
   label,
@@ -15,6 +16,7 @@ export const UploadButtonWithLabel = ({
   label: string;
   onUpload: (res: { url: string }[]) => Promise<void> | void;
 }) => {
+  const tCommon = useTranslations("Common");
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -96,7 +98,7 @@ export const UploadButtonWithLabel = ({
           />
           <ActionButtons>
             <button onClick={() => setImageSrc(null)}>Cancel</button>
-            <button onClick={handleSave}>Save</button>
+            <button onClick={handleSave}>{tCommon("save")}</button>
           </ActionButtons>
         </CropContainer>
       )}

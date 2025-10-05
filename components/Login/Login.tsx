@@ -12,7 +12,8 @@ export const Login = () => {
     const { data: session } = useSession();
     const user = useMemo(() => session?.user, [session]);
     const [loading, setLoading] = useState(false);
-    const t = useTranslations("Login")
+    const t = useTranslations("Login");
+    const tCommon = useTranslations("Common");
     const router = useRouter();
 
     const loginForm = useForm({
@@ -66,7 +67,7 @@ export const Login = () => {
                 {...loginForm.getInputProps('password')}
             />
             <LoginControls>
-                <Checkbox label="Remember me" />
+                <Checkbox label={tCommon("rememberMe")} />
                 <Link href="/forgot">{t("forgottenPassword")}</Link>
             </LoginControls>
             <Button loading={loading} type="submit" label={t("login")} size={ButtonSize.md} variant={ButtonVariant.PRIMARY} />

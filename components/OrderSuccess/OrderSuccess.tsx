@@ -17,7 +17,9 @@ export const OrderSuccess = () => {
         axios.get(`/api/order/success?orderId=${orderId}`)
         .then(() => {
             dispatch(resetCart())
-            localStorage.removeItem("canvasState");
+            if (typeof window !== 'undefined') {
+                localStorage.removeItem("canvasState");
+            }
         })
         }
     }, [orderId])

@@ -1,14 +1,30 @@
 
 > quickpass@0.1.0 dev
-> next dev
+> next dev --port 12000 --hostname 0.0.0.0
 
- ⚠ Port 3000 is in use, trying 3001 instead.
- ⚠ Port 3001 is in use, trying 3002 instead.
- ⚠ Port 3002 is in use, trying 3003 instead.
- ⚠ Port 3003 is in use, trying 3004 instead.
    ▲ Next.js 15.2.2
-   - Local:        http://localhost:3004
-   - Network:      http://10.2.14.140:3004
+   - Local:        http://localhost:12000
+   - Network:      http://0.0.0.0:12000
+   - Environments: .env.local
 
  ✓ Starting...
- ✓ Ready in 1829ms
+ ✓ Ready in 1658ms
+ ✓ Compiled /middleware in 263ms (133 modules)
+ ○ Compiling /[locale] ...
+ ✓ Compiled /[locale] in 6.1s (3051 modules)
+Error storing data ReferenceError: window is not defined
+    at new Promise (<anonymous>)
+ GET /cs 200 in 7510ms
+ ○ Compiling /api/auth/[...nextauth] ...
+ ✓ Compiled /api/auth/[...nextauth] in 1775ms (3383 modules)
+ GET /api/auth/session 200 in 2584ms
+ GET /api/auth/session 200 in 40ms
+Error storing data ReferenceError: window is not defined
+    at new Promise (<anonymous>)
+ GET / 200 in 483ms
+ GET / 200 in 62ms
+ GET / 200 in 61ms
+ GET / 200 in 57ms
+ GET / 200 in 61ms
+ GET / 200 in 55ms
+ GET / 200 in 59ms

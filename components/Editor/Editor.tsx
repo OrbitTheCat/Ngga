@@ -116,13 +116,14 @@ export const Editor = ({ handleOrder }: { handleOrder: Function }) => {
 
   const handleResize = () => {
     const canvas = editor?.canvas;
+    if (typeof document === 'undefined') return;
     const outerCanvasContainer = document.querySelector('#editor') as HTMLElement;
     if (!canvas || !outerCanvasContainer) return;
 
     const canvasWidth = canvas.getWidth();
     const canvasHeight = canvas.getHeight();
 
-    if (window?.innerWidth <= 2000) {
+    if (typeof window !== 'undefined' && window?.innerWidth <= 2000) {
       // canvas 100vw width
       const ratio = canvasWidth / Math.max(canvasHeight, 600)
       const scale = ratio / (800 / 600)
@@ -204,7 +205,9 @@ export const Editor = ({ handleOrder }: { handleOrder: Function }) => {
     editor.canvas.on('selection:created', handleSelection);
     editor.canvas.on('selection:updated', handleSelection);
     editor.canvas.on('selection:cleared', handleDeselection);
-    window.addEventListener('resize', handleResize);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+    }
     setWasInitialized(true);
     if (init) saveCanvasState(0, cardVariant);
   }
@@ -288,7 +291,9 @@ export const Editor = ({ handleOrder }: { handleOrder: Function }) => {
       editor.canvas.on('selection:created', handleSelection);
       editor.canvas.on('selection:updated', handleSelection);
       editor.canvas.on('selection:cleared', handleDeselection);
-      window.addEventListener('resize', handleResize);
+      if (typeof window !== 'undefined') {
+        window.addEventListener('resize', handleResize);
+      }
 
       editor.canvas.renderAll();
     }
@@ -305,7 +310,9 @@ export const Editor = ({ handleOrder }: { handleOrder: Function }) => {
       editor?.canvas.off('selection:created', handleSelection);
       editor?.canvas.off('selection:updated', handleSelection);
       editor?.canvas.off('selection:cleared', handleDeselection);
-      window.removeEventListener('resize', handleResize);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('resize', handleResize);
+      }
     };
   }, [editor]);
 
@@ -630,7 +637,9 @@ export const Editor = ({ handleOrder }: { handleOrder: Function }) => {
     setFontSize(16);
     setActiveCardIndex(0);
     resetEditor();
-    localStorage.removeItem("canvasState");
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem("canvasState");
+    }
 
     initialize();
   }

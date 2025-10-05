@@ -84,6 +84,8 @@
     }
   },
   "Editor": {
+    "selectVariant": "Select card variant",
+    "loadingEditor": "Loading editor...",
     "cards": {
       "cherry": "Cherry",
       "sapeli": "Sapeli",
@@ -413,5 +415,14 @@
     "videos": {
       "urlPlaceholder": "Video URL"
     }
+  },
+  "Common": {
+    "share": "Share",
+    "download": "Download",
+    "downloadVCard": "Download vCard",
+    "save": "Save",
+    "rememberMe": "Remember me",
+    "copyLink": "Copy link",
+    "saveProfile": "Save profile"
   }
 }

@@ -16,16 +16,19 @@ export const DigitalProfile = ({ profile }: { profile: ProfileState }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [copied, setCopied] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
-     const t = useTranslations("Profile.user");
+    const t = useTranslations("Profile.user");
+    const tCommon = useTranslations("Common");
 
     const handleShare = async () => {
         if (typeof window === 'undefined') return;
         
-        const profileUrl = window.location.origin.replace(/^https?:\/\//, '').replace(/^www\./, '') + `/profile/${profile.alias ?? profile.url}`;
+        const profileUrl = `${window.location.origin}/profile/${profile.alias ?? profile.url}`;
         const profileName = profile.name || 'Profile';
         
         const success = await copyToClipboard(profileUrl, {
-            useWebShare: true
+            useWebShare: true,
+            shareTitle: `${profileName}'s Profile`,
+            shareText: `Check out ${profileName}'s profile`
         });
         
         if (success) {
@@ -77,12 +80,14 @@ export const DigitalProfile = ({ profile }: { profile: ProfileState }) => {
             }
         };
 
-        if (isMenuOpen) {
+        if (isMenuOpen && typeof document !== 'undefined') {
             document.addEventListener('mousedown', handleClickOutside);
         }
 
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
+            if (typeof document !== 'undefined') {
+                document.removeEventListener('mousedown', handleClickOutside);
+            }
         };
     }, [isMenuOpen]);
 
@@ -100,7 +105,7 @@ export const DigitalProfile = ({ profile }: { profile: ProfileState }) => {
                         <div className="dropdown-menu">
                             <button className="menu-item" onClick={handleShare}>
                                 <FontAwesomeIcon icon={faShare} />
-                                <span>Share</span>
+                                <span>{tCommon("share")}</span>
                             </button>
                         </div>
                     )}
@@ -165,7 +170,7 @@ export const DigitalProfile = ({ profile }: { profile: ProfileState }) => {
                         ))}
                     </DigitalVideosWrapperStyled>
                 )}
-                <button className="download-vcard-button" onClick={() => downloadVCard(profile)}>Download vCard</button>
+                <button className="download-vcard-button" onClick={() => downloadVCard(profile)}>{tCommon("downloadVCard")}</button>
             </DigitalProfileContentStyled>
         </DigitalProfileWrapperStyled>
     );

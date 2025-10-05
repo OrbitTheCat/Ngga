@@ -42,6 +42,9 @@ export const ZakekeEditor = ({ handleOrder }: ZakekeEditorProps) => {
 
   // Load Zakeke script
   useEffect(() => {
+    // Check if we're in a browser environment
+    if (typeof document === 'undefined') return;
+    
     const script = document.createElement('script');
     script.src = 'https://portal.zakeke.com/scripts/integration/apiV2/customizer.js';
     script.async = true;
@@ -51,7 +54,9 @@ export const ZakekeEditor = ({ handleOrder }: ZakekeEditorProps) => {
     document.head.appendChild(script);
 
     return () => {
-      document.head.removeChild(script);
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
     };
   }, []);
 
@@ -125,7 +130,9 @@ export const ZakekeEditor = ({ handleOrder }: ZakekeEditorProps) => {
 
         onBackClicked: () => {
           // Handle back navigation
-          window.history.back();
+          if (typeof window !== 'undefined') {
+            window.history.back();
+          }
         },
 
         // Configuration options

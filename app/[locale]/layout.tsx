@@ -22,7 +22,7 @@ export const lato = Lato({ subsets: ['latin'], weight: ['400', '700'] });
 export const plusJakartaSans = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '700'] });
 export const inter = Inter({ subsets: ['latin'], weight: ['400', '700'] });
 
-export default async function LocaleLAyout({
+export default async function LocaleLayout({
   children,
   params,
 }: {

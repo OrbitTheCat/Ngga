@@ -80,6 +80,12 @@ export async function copyToClipboard(
  */
 function legacyCopyToClipboard(text: string): Promise<boolean> {
   return new Promise((resolve) => {
+    // Check if we're in a browser environment
+    if (typeof document === 'undefined') {
+      resolve(false);
+      return;
+    }
+    
     // Create a temporary textarea element
     const textArea = document.createElement('textarea');
     textArea.value = text;
@@ -114,6 +120,12 @@ function legacyCopyToClipboard(text: string): Promise<boolean> {
  * Show manual copy fallback (select text for user to copy manually)
  */
 function showManualCopyFallback(text: string, message: string): void {
+  // Check if we're in a browser environment
+  if (typeof window === 'undefined') {
+    console.log(`Manual copy fallback: ${message} ${text}`);
+    return;
+  }
+  
   // Create a modal or alert with selectable text
   try {
     // Use prompt as a fallback - user can select and copy
@@ -128,6 +140,11 @@ function showManualCopyFallback(text: string, message: string): void {
  * Detect if the device is likely mobile
  */
 function isMobileDevice(): boolean {
+  // Check if we're in a browser environment
+  if (typeof navigator === 'undefined' || typeof window === 'undefined') {
+    return false;
+  }
+  
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
     navigator.userAgent
   ) || (
@@ -141,6 +158,11 @@ function isMobileDevice(): boolean {
  * Check if clipboard operations are supported
  */
 export function isClipboardSupported(): boolean {
+  // Check if we're in a browser environment
+  if (typeof navigator === 'undefined' || typeof window === 'undefined' || typeof document === 'undefined') {
+    return false;
+  }
+  
   return !!(
     (navigator.clipboard && window.isSecureContext) ||
     (typeof document.queryCommandSupported === 'function' && document.queryCommandSupported('copy')) ||
@@ -152,6 +174,11 @@ export function isClipboardSupported(): boolean {
  * Get the best available clipboard method
  */
 export function getClipboardMethod(): 'clipboard-api' | 'execCommand' | 'web-share' | 'manual' | 'none' {
+  // Check if we're in a browser environment
+  if (typeof navigator === 'undefined' || typeof window === 'undefined' || typeof document === 'undefined') {
+    return 'none';
+  }
+  
   if (isMobileDevice()) {
     return 'web-share';
   }

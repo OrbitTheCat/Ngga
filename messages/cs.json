@@ -90,6 +90,8 @@
         }
     },
     "Editor": {
+        "selectVariant": "Vyberte variantu karty",
+        "loadingEditor": "Načítání editoru...",
         "cards": {
             "cherry": "Třešen",
             "sapeli": "Sapeli",
@@ -418,5 +420,14 @@
         "videos": {
             "urlPlaceholder": "Adresa URL videa"
         }
+    },
+    "Common": {
+        "share": "Sdílet",
+        "download": "Stáhnout",
+        "downloadVCard": "Stáhnout vCard",
+        "save": "Uložit",
+        "rememberMe": "Zapamatovat si mě",
+        "copyLink": "Kopírovat odkaz",
+        "saveProfile": "Uložit profil"
     }
 }

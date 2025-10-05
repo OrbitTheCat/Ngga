@@ -31,11 +31,13 @@ export const User = ({ profile, setProfile }: ProfileProps) => {
     const handleAliasButtonClick = async () => {
         if (typeof window === 'undefined') return;
         
-        const profileUrl = window.location.href.replace(/^https?:\/\//, '').replace(/^www\./, '') + `/${profile.alias ?? profile.url}`;
+        const profileUrl = `${window.location.origin}/profile/${profile.alias ?? profile.url}`;
         const profileName = profile.name || 'Profile';
         
         const success = await copyToClipboard(profileUrl, {
-            useWebShare: true
+            useWebShare: true,
+            shareTitle: `${profileName}'s Profile`,
+            shareText: `Check out ${profileName}'s profile`
         });
         
         if (success) {

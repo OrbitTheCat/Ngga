@@ -3,6 +3,12 @@ import VCard from 'vcard-creator';
 import { ProfileState } from '@/types/Profile';
 
 export function downloadVCard(profile: ProfileState) {
+    // Check if we're in a browser environment
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
+        console.warn('downloadVCard can only be used in browser environment');
+        return;
+    }
+    
     const card = new VCard();
 
     // Name
